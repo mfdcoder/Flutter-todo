@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 
 import './screens/todo_home_screen.dart';
 import './screens/todo_detail_screen.dart';
+import './screens/add_todo_sceen.dart';
 import './providers/todos_provider.dart';
-import './providers/todo.dart';
 
 void main() {
   runApp(MyApp());
@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (ctx) => TodoHomeScreen(),
           TooDetailScreen.routeName: (ctx) => TooDetailScreen(),
+          AddToDoScreen.routeName: (ctx) => AddToDoScreen(),
         },
       ),
     );

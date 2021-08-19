@@ -4,6 +4,7 @@ import '../providers/todo.dart';
 
 import './../screens/todo_detail_screen.dart';
 import './../providers/todo.dart';
+import './../models/status_enum.dart';
 
 class ToDoItem extends StatelessWidget {
   // final ToDo item;
@@ -12,10 +13,11 @@ class ToDoItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final item = Provider.of<ToDo>(context);
+    final item = Provider.of<ToDo>(context, listen: true);
     return ListTile(
       title: Text(item.title),
       subtitle: Text(item.body),
+      leading: Icon(item.status == Status.pending ? Icons.pending : Icons.done),
       trailing: GestureDetector(
         child: Container(
           child: Text(item.statusString),

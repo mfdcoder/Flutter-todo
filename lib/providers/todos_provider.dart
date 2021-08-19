@@ -10,14 +10,14 @@ class ToDosProvider with ChangeNotifier {
       title: 'Task-1',
       body: 'Body for task-11',
       deadline: DateTime.now(),
-      status: Status.pending,
+      status: Status.completed,
     ),
     ToDo(
       id: '2',
       title: 'Task-2',
       body: 'Body for task-2',
       deadline: DateTime.now(),
-      status: Status.pending,
+      status: Status.completed,
     ),
     ToDo(
       id: '3',
@@ -44,6 +44,25 @@ class ToDosProvider with ChangeNotifier {
 
   List<ToDo> get items {
     return [..._todos]; // Return deep copy
+  }
+
+  List<ToDo> get completedItems {
+    return [..._todos.where((element) => element.status == Status.completed)];
+  }
+
+  List<ToDo> get pendingItems {
+    return [..._todos.where((element) => element.status == Status.pending)];
+  }
+
+  List<ToDo> findByStatus(int status) {
+    if (status == 1) {
+      return [..._todos.where((element) => element.status == Status.completed)];
+    } else if (status == 2) {
+      return [..._todos.where((element) => element.status == Status.pending)];
+    }
+    // Return deep copy
+    return [..._todos];
+    // notifyListeners()
   }
 
   ToDo findById(id) {
