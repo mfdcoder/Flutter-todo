@@ -79,4 +79,9 @@ class ToDosProvider with ChangeNotifier {
 
     notifyListeners();
   }
+  
+  void addToDo(ToDo todo) {
+    _todos.add(todo);
+    notifyListeners();
+  }
 }
