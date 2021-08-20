@@ -1,0 +1,85 @@
+
+@startuml
+set namespaceSeparator ::
+
+class "todoapp::providers::todos_provider.dart::ToDosProvider" {
+  -List<ToDo> _todos
+  +List<ToDo> items
+  +List<ToDo> completedItems
+  +List<ToDo> pendingItems
+  +List<ToDo> findByStatus()
+  +ToDo findById()
+  +void updateStatusById()
+  +void addToDo()
+}
+
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "todoapp::providers::todos_provider.dart::ToDosProvider"
+
+class "todoapp::providers::todo.dart::ToDo" {
+  +String id
+  +String title
+  +String body
+  +DateTime deadline
+  +Status status
+  +String statusString
+  +void updateStaus()
+}
+
+"todoapp::providers::todo.dart::ToDo" o-- "todoapp::models::status_enum.dart::Status"
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "todoapp::providers::todo.dart::ToDo"
+
+class "todoapp::models::status_enum.dart::Status" {
+  +int index
+  {static} +List<Status> values
+  {static} +Status pending
+  {static} +Status completed
+  {static} +Status overdue
+}
+
+"todoapp::models::status_enum.dart::Status" o-- "todoapp::models::status_enum.dart::Status"
+
+class "todoapp::screens::todo_home_screen.dart::TodoHomeScreen" {
+  +_TodoHomeScreenState createState()
+}
+
+class "todoapp::screens::todo_home_screen.dart::_TodoHomeScreenState" {
+  -int _tabIndex
+  -void _selectTab()
+  +Widget build()
+}
+
+class "todoapp::screens::todo_detail_screen.dart::TooDetailScreen" {
+  {static} +String routeName
+  +Widget build()
+}
+
+class "todoapp::screens::add_todo_sceen.dart::AddToDoScreen" {
+  {static} +String routeName
+  +_AddToDoScreenState createState()
+}
+
+class "todoapp::screens::add_todo_sceen.dart::_AddToDoScreenState" {
+  -GlobalKey<FormState> _formkey
+  +ToDo newToDo
+  -dynamic _onSubmit()
+  +Widget build()
+}
+
+"todoapp::screens::add_todo_sceen.dart::_AddToDoScreenState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"todoapp::screens::add_todo_sceen.dart::_AddToDoScreenState" o-- "todoapp::providers::todo.dart::ToDo"
+
+class "todoapp::main.dart::MyApp" {
+  +Widget build()
+}
+
+class "todoapp::widgets::todo_item.dart::ToDoItem" {
+  +Widget build()
+}
+
+class "todoapp::widgets::todo_listview.dart::ToDoListView" {
+  -int _tabIndex
+  +Widget build()
+}
+
+
+@enduml
